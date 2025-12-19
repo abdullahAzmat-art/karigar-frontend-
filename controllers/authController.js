@@ -8,6 +8,9 @@ exports.register = async (req, res) => {
     try {
         const { name, email, password, role, phone, address } = req.body;
 
+        // Set status to pending_approval if registering as provider
+        const status = role === 'provider' ? 'pending_approval' : 'active';
+
         // Create user
         const user = await User.create({
             name,
@@ -15,7 +18,8 @@ exports.register = async (req, res) => {
             password,
             role,
             phone,
-            address
+            address,
+            status
         });
 
         sendTokenResponse(user, 201, res);

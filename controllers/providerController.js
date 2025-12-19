@@ -8,6 +8,14 @@ exports.upsertServiceProfile = async (req, res) => {
     try {
         const { title, description, category, price, availability } = req.body;
 
+        // Validation
+        if (!title || !description || !category || !price) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide all required fields: title, description, category, and price'
+            });
+        }
+
         let service = await Service.findOne({ provider: req.user.id });
 
         if (service) {

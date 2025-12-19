@@ -65,7 +65,7 @@ exports.createBooking = async (req, res) => {
             service: serviceId,
             provider: service.provider,
             bookingDate,
-            totalAmount: service.price
+            amount: service.price
         });
 
         res.status(201).json({
